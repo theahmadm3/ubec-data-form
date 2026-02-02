@@ -19,7 +19,7 @@ export const HopeDliForm = ({ onNext, onPrev, isFinalStep, onSubmit }: FormProps
         toast({ title: "Form Saved", description: "Your data has been saved (prototype)." });
     };
     const handleSubmit = () => {
-        toast({ title: "Form Submitted", description: "Your data has been successfully submitted (prototype)." });
+        console.log("Form submitted (prototype)");
         if(onSubmit) onSubmit();
     };
     return (

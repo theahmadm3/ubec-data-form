@@ -16,8 +16,11 @@ import { FormProgressMilestone } from './form-progress-milestone';
 
 const individualFormsOrder: FormType[] = ["Access", "GSCCI", "Infrastructure", "Quality", "Systems", "Sports", "HOPE_DLI"];
 
-export const IndividualFormsView = () => {
-    const { toast } = useToast();
+interface IndividualFormsViewProps {
+    onSubmit?: () => void;
+}
+
+export const IndividualFormsView = ({ onSubmit }: IndividualFormsViewProps) => {
     const [currentStep, setCurrentStep] = useState(individualFormsOrder[0]);
     const currentIndex = individualFormsOrder.indexOf(currentStep);
 
@@ -31,12 +34,6 @@ export const IndividualFormsView = () => {
             setCurrentStep(individualFormsOrder[currentIndex - 1]);
         }
     };
-    const handleSubmit = () => {
-        toast({
-            title: "All Forms Submitted",
-            description: "Thank you for completing all the forms.",
-        });
-    }
 
     const formMappingWithNav: Record<string, React.ReactNode> = {
         "Access": <AccessForm onNext={handleNext} />,
@@ -45,7 +42,7 @@ export const IndividualFormsView = () => {
         "Quality": <QualityForm onPrev={handlePrev} onNext={handleNext} />,
         "Systems": <SystemsOptimizationForm onPrev={handlePrev} onNext={handleNext} />,
         "Sports": <SportsDevelopmentForm onPrev={handlePrev} onNext={handleNext} />,
-        "HOPE_DLI": <HopeDliForm onPrev={handlePrev} isFinalStep={true} onSubmit={handleSubmit} />,
+        "HOPE_DLI": <HopeDliForm onPrev={handlePrev} isFinalStep={true} onSubmit={onSubmit} />,
     };
 
     return (
