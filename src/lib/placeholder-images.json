@@ -1,8 +1,8 @@
 {
   "placeholderImages": [
     {
-      "id": "sign-up-form-image",
-      "description": "A decorative image for the sign up form, showing people collaborating.",
+      "id": "sign-in-form-image",
+      "description": "A decorative image for the sign in form, showing people collaborating.",
       "imageUrl": "https://images.unsplash.com/photo-1739298061707-cefee19941b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjb2xsYWJvcmF0aW9uJTIwbWVldGluZ3xlbnwwfHx8fDE3NzAwMTQzNDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "collaboration meeting"
     }

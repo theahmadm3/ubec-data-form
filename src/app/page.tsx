@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,30 +20,21 @@ import { useToast } from "@/hooks/use-toast";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Logo from "@/components/logo";
 
-const formSchema = z
-  .object({
-    email: z.string().email({ message: "Please enter a valid email." }),
-    password: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters." }),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-  });
+const formSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email." }),
+  password: z.string().min(1, { message: "Password is required." }),
+});
 
-export default function SignUpPage() {
+export default function SignInPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const formImage = PlaceHolderImages.find(img => img.id === 'sign-up-form-image');
+  const formImage = PlaceHolderImages.find(img => img.id === 'sign-in-form-image');
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
@@ -52,7 +42,7 @@ export default function SignUpPage() {
     // In a real app, you'd handle form submission here (e.g., API call)
     console.log(values);
     toast({
-      title: "Account Created!",
+      title: "Signed In!",
       description: "Redirecting you to the data collection form.",
     });
     router.push("/form");
@@ -66,9 +56,9 @@ export default function SignUpPage() {
             <div className="mb-4 flex justify-center">
                 <Logo />
             </div>
-            <h1 className="text-3xl font-bold font-headline">Create an account</h1>
+            <h1 className="text-3xl font-bold font-headline">Sign In</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your information to get started
+              Enter your credentials to access your account
             </p>
           </div>
           <Form {...form}>
@@ -99,30 +89,11 @@ export default function SignUpPage() {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder="••••••••" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <Button type="submit" className="w-full">
-                Sign Up
+                Sign In
               </Button>
             </form>
           </Form>
-          <div className="mt-4 text-center text-sm">
-            Already have an account?{" "}
-            <Link href="#" className="underline">
-              Sign in
-            </Link>
-          </div>
         </div>
       </div>
       <div className="hidden bg-muted lg:block relative">
