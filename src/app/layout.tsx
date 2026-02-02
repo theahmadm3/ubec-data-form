@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import OnlineStatusHeader from '@/components/online-status-header';
 
 export const metadata: Metadata = {
   title: 'UBEC Data Form',
@@ -19,7 +20,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased">
+      <body className="font-body antialiased pt-7">
+        <OnlineStatusHeader />
         {children}
         <Toaster />
       </body>

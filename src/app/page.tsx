@@ -43,9 +43,9 @@ export default function SignInPage() {
     console.log(values);
     toast({
       title: "Signed In!",
-      description: "Redirecting you to the data collection form.",
+      description: "Redirecting you to the dashboard.",
     });
-    router.push("/form");
+    router.push("/dashboard");
   }
 
   return (
