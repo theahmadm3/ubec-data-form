@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Check } from "lucide-react";
 
 interface FormProgressMilestoneProps {
   steps: string[];
@@ -11,36 +10,47 @@ interface FormProgressMilestoneProps {
 export const FormProgressMilestone = ({ steps, currentStep }: FormProgressMilestoneProps) => {
   const currentIndex = steps.indexOf(currentStep);
 
+  if (steps.length === 0) {
+    return null;
+  }
+
+  const progressWidth = (currentIndex / (steps.length - 1)) * 100;
+
   return (
     <div className="w-full py-8">
-        <div className="flex justify-between items-start relative">
-            {/* The progress line */}
-            <div className="absolute top-5 left-0 w-full h-0.5 bg-muted" aria-hidden="true"></div>
+        <div className="flex justify-between items-start relative px-2 sm:px-4">
+            {/* The full-width background line */}
             <div 
-                className="absolute top-5 left-0 h-0.5 bg-primary transition-all duration-300" 
-                style={{ width: `${(currentIndex / (steps.length - 1)) * 100}%` }}>
+                className="absolute top-2 left-0 w-full h-1 bg-muted" 
+                style={{transform: 'translateY(-50%)'}} 
+                aria-hidden="true">
+            </div>
+            
+            {/* The active progress line */}
+            <div 
+                className="absolute top-2 left-0 h-1 bg-primary transition-all duration-300" 
+                style={{ 
+                    width: `${progressWidth}%`,
+                    transform: 'translateY(-50%)'
+                }}>
             </div>
 
             {steps.map((step, index) => (
-                <div key={step} className="flex flex-col items-center justify-center relative z-10">
+                <div key={step} className="flex flex-col items-center justify-start relative z-10 text-center">
+                    {/* Milestone Circle */}
                      <div
                         className={cn(
-                            "w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-colors duration-300 border-2",
-                            index < currentIndex
-                                ? "bg-primary text-primary-foreground border-primary"
-                                : index === currentIndex
-                                ? "bg-background text-primary border-primary scale-110"
-                                : "bg-background text-muted-foreground border-muted"
+                            "w-4 h-4 rounded-full transition-colors duration-300",
+                            index <= currentIndex
+                                ? "bg-primary" // Completed or current
+                                : "bg-muted"   // Pending
                         )}
                     >
-                        {index < currentIndex ? (
-                            <Check className="w-6 h-6" />
-                        ) : (
-                            index + 1
-                        )}
                     </div>
+
+                    {/* Milestone Label */}
                     <p className={cn(
-                        "text-xs mt-2 text-center w-20 font-medium",
+                        "text-xs mt-2 w-24 break-words font-medium",
                         index > currentIndex ? "text-muted-foreground" : "text-foreground"
                     )}>
                         {step.replace('_', '-')}
