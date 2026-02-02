@@ -25,8 +25,7 @@ export const HopeDliForm = ({ onNext, onPrev, isFinalStep, onSubmit }: FormProps
     return (
     <Card>
         <CardHeader>
-        <CardTitle>HOPE-DLI Form</CardTitle>
-        <CardDescription>To record details of a specific activity under the "HOPE-DLI" initiative.</CardDescription>
+        <CardTitle>HOPE-DLI</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

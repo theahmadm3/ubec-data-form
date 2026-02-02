@@ -21,8 +21,7 @@ export const SportsDevelopmentForm = ({ onNext, onPrev, isFinalStep, onSubmit }:
     return (
     <Card>
         <CardHeader>
-            <CardTitle>Sports Development Form</CardTitle>
-            <CardDescription>To track participation and resource distribution for sports programs.</CardDescription>
+            <CardTitle>Sports Development</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
             <div className="space-y-2">

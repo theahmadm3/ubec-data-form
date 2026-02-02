@@ -21,8 +21,7 @@ export const QualityForm = ({ onNext, onPrev, isFinalStep, onSubmit }: FormProps
     return (
     <Card>
         <CardHeader>
-            <CardTitle>Quality Form</CardTitle>
-            <CardDescription>To document educational quality interventions.</CardDescription>
+            <CardTitle>Quality</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
             <div className="space-y-2">

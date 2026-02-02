@@ -47,14 +47,6 @@ export const FormProgressMilestone = ({ steps, currentStep }: FormProgressMilest
                         )}
                     >
                     </div>
-
-                    {/* Milestone Label */}
-                    <p className={cn(
-                        "text-xs mt-2 w-24 break-words font-medium",
-                        index > currentIndex ? "text-muted-foreground" : "text-foreground"
-                    )}>
-                        {step.replace('_', '-')}
-                    </p>
                 </div>
             ))}
         </div>

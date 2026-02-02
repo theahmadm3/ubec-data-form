@@ -49,15 +49,12 @@ export const IndividualFormsView = () => {
     };
 
     return (
-        <>
-            <h2 className="text-2xl font-semibold font-headline mb-1">Individual Data Forms</h2>
-            <p className="text-muted-foreground mb-2">Please fill out all sections completely by navigating with the buttons below.</p>
-            
+        <div>
             <FormProgressMilestone steps={individualFormsOrder} currentStep={currentStep} />
             
             <div className="mt-4">
                 {formMappingWithNav[currentStep]}
             </div>
-        </>
+        </div>
     );
 }

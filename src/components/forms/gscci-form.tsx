@@ -21,8 +21,7 @@ export const GscciForm = ({ onNext, onPrev, isFinalStep, onSubmit }: FormProps) 
     return (
     <Card>
         <CardHeader>
-            <CardTitle>GSCCI Form (Greening Activity)</CardTitle>
-            <CardDescription>To capture details about environmental or greening initiatives.</CardDescription>
+            <CardTitle>GSCCI</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
             <div className="space-y-2">

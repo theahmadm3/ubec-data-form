@@ -21,8 +21,7 @@ export const SystemsOptimizationForm = ({ onNext, onPrev, isFinalStep, onSubmit 
     return (
     <Card>
         <CardHeader>
-            <CardTitle>Systems Optimization Form</CardTitle>
-            <CardDescription>To record data related to system improvements and monitoring.</CardDescription>
+            <CardTitle>Systems Optimization</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
