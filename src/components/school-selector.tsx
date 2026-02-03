@@ -28,14 +28,9 @@ const SchoolSelector = ({ onSelectSchool, completedSchools = [] }: SchoolSelecto
   return (
     <div className="max-w-xl mx-auto">
       <div className="mb-6 text-muted-foreground/20 flex justify-center">
-      <iframe 
-        width="100%" 
-        height="450" 
-        style={{border: 0}}
-        loading="lazy" 
-        allowFullScreen 
-        src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Kano,Nigeria">
-      </iframe>
+      
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1823.6492618520224!2d8.561959079862755!3d11.979402491310301!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x11ae8199ae590507%3A0x466f5cb1734cb983!2sTarauni%2C%20Kano%20700102%2C%20Kano!5e0!3m2!1sen!2sng!4v1770127932749!5m2!1sen!2sng" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
       </div>
       <h2 className="text-3xl font-bold font-headline mb-2">Select a School</h2>
       <p className="text-muted-foreground mb-6">Choose the school you are submitting data for. Completed schools will be marked with a check.</p>
