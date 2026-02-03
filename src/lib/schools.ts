@@ -4,10 +4,8 @@ export interface School {
 }
 
 export const schools: School[] = [
-  { id: "lionheart", name: "Lionheart College" },
-  { id: "newhouse", name: "Newhouse Primary School" },
-  { id: "katampe", name: "Katampe Government Secondary School" },
-  { id: "wonderful", name: "Wonderful Daycare ECCDE" },
-  { id: "jabi", name: "Jabi High College" },
-  { id: "akure", name: "Akure School of Science and technology" },
+  { id: "tarauni", name: "Tarauni Government School" },
+  { id: "giginyu", name: "Giginyu Primary School" },
+  { id: "hotoro", name: "Hotoro Government Secondary School" },
+  { id: "bompai", name: "Bompai Secondary School" },
 ];
