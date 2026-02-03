@@ -15,7 +15,6 @@ const SchoolSelector = ({ onSelectSchool, completedSchools = [] }: SchoolSelecto
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSchool, setSelectedSchool] = useState<School | null>(null);
 
-
   const filteredSchools = schools.filter((school) =>
     school.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -28,9 +27,17 @@ const SchoolSelector = ({ onSelectSchool, completedSchools = [] }: SchoolSelecto
   return (
     <div className="max-w-xl mx-auto">
       <div className="mb-6 text-muted-foreground/20 flex justify-center">
-      
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1823.6492618520224!2d8.561959079862755!3d11.979402491310301!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x11ae8199ae590507%3A0x466f5cb1734cb983!2sTarauni%2C%20Kano%20700102%2C%20Kano!5e0!3m2!1sen!2sng!4v1770127932749!5m2!1sen!2sng" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
+        {/* Updated iframe with proper React syntax */}
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1951.4645881963274!2d8.5619591!3d11.9794025!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x11ae8199ae590507%3A0x466f5cb1734cb983!2sTarauni%2C%20Kano%20700102%2C%20Kano!5e0!3m2!1sen!2sng!4v1770129300539!5m2!1sen!2sng" 
+          width="600" 
+          height="450" 
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Google Maps - Tarauni, Kano"
+        />
       </div>
       <h2 className="text-3xl font-bold font-headline mb-2">Select a School</h2>
       <p className="text-muted-foreground mb-6">Choose the school you are submitting data for. Completed schools will be marked with a check.</p>
