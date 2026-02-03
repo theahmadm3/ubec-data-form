@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Logo from "@/components/logo";
+import { testUsers } from "@/lib/test-users";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }),
@@ -39,13 +40,30 @@ export default function SignInPage() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // In a real app, you'd handle form submission here (e.g., API call)
-    console.log(values);
-    toast({
-      title: "Signed In!",
-      description: "Redirecting you to the dashboard.",
-    });
-    router.push("/dashboard");
+    const user = testUsers.find(
+      (u) => u.email === values.email && u.password === values.password
+    );
+
+    if (user) {
+      toast({
+        title: "Signed In!",
+        description: "Redirecting you to the dashboard.",
+      });
+      
+      const queryParams = new URLSearchParams({ userType: user.userType });
+      if (user.userType === 'group' && user.roleId) {
+        queryParams.append('roleId', user.roleId);
+      }
+      
+      router.push(`/dashboard?${queryParams.toString()}`);
+
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Invalid Credentials",
+        description: "Please check your email and password.",
+      });
+    }
   }
 
   return (

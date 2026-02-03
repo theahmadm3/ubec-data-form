@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, cloneElement } from "react";
+import { useState, cloneElement, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import Logo from "@/components/logo";
-import UserTypeSelector from "@/components/user-type-selector";
-import GroupUserSelector from "@/components/group-user-selector";
-import { groupUsers, GroupUser, FormType } from "@/lib/user-types";
+import { groupUsers, FormType } from "@/lib/user-types";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { IndividualFormsView } from "@/components/individual-forms-view";
@@ -27,8 +26,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-type UserType = "individual" | "group";
-
 const formMapping: Record<FormType, React.ReactNode> = {
   "Access": <AccessForm />,
   "GSCCI": <GscciForm />,
@@ -39,21 +36,29 @@ const formMapping: Record<FormType, React.ReactNode> = {
   "HOPE_DLI": <HopeDliForm />,
 };
 
-
 export default function DashboardPage() {
-  const [userType, setUserType] = useState<UserType | null>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const userType = searchParams.get('userType') as 'individual' | 'group' | null;
+  const roleId = searchParams.get('roleId');
+
   const [selectedSchool, setSelectedSchool] = useState<School | null>(null);
-  const [selectedGroupUser, setSelectedGroupUser] = useState<GroupUser | null>(null);
   const [completedSchools, setCompletedSchools] = useState<string[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
+  useEffect(() => {
+    // If user info is not in URL, redirect to login.
+    // This is a basic protection for a prototype.
+    if (!userType) {
+      router.push('/');
+    }
+  }, [userType, router]);
+
   const handleBack = () => {
-    if (selectedGroupUser) {
-      setSelectedGroupUser(null);
-    } else if (selectedSchool) {
+    if (selectedSchool) {
       setSelectedSchool(null);
-    } else if (userType) {
-      setUserType(null);
+    } else {
+      router.push('/');
     }
   }
 
@@ -66,20 +71,20 @@ export default function DashboardPage() {
 
   const handleModalCloseAndRedirect = () => {
     setShowSuccessModal(false);
-    setSelectedGroupUser(null);
     setSelectedSchool(null);
   };
 
   const renderContent = () => {
     if (!userType) {
-      return <UserTypeSelector onSelectUserType={setUserType} />;
+      // This will show briefly before the useEffect redirects
+      return <p className="text-center">Loading user information...</p>;
     }
 
     if (!selectedSchool) {
       return (
         <>
           <Button variant="ghost" onClick={handleBack} className="mb-4 -ml-4">
-            <ArrowLeft className="mr-2 h-4 w-4" /> Back to user type selection
+            <ArrowLeft className="mr-2 h-4 w-4" /> Log Out
           </Button>
           <SchoolSelector onSelectSchool={setSelectedSchool} completedSchools={completedSchools} />
         </>
@@ -87,18 +92,13 @@ export default function DashboardPage() {
     }
 
     if (userType === 'group') {
-      if (!selectedGroupUser) {
-        return (
-            <>
-                <Button variant="ghost" onClick={handleBack} className="mb-4 -ml-4">
-                    <ArrowLeft className="mr-2 h-4 w-4" /> Back to school selection
-                </Button>
-                <GroupUserSelector onSelectGroupUser={setSelectedGroupUser} />
-            </>
-        );
+      const groupUser = groupUsers.find(u => u.id === roleId);
+
+      if (!groupUser) {
+        return <p className="text-center text-destructive">Error: Invalid group role specified.</p>;
       }
       
-      const GroupFormComponent = formMapping[selectedGroupUser.form];
+      const GroupFormComponent = formMapping[groupUser.form];
       const formWithProps = cloneElement(GroupFormComponent as React.ReactElement, {
         isFinalStep: true,
         onSubmit: handleFinalSubmit,
@@ -107,11 +107,12 @@ export default function DashboardPage() {
       return (
         <>
             <Button variant="ghost" onClick={handleBack} className="mb-4 -ml-4">
-                <ArrowLeft className="mr-2 h-4 w-4" /> Back to group selection
+                <ArrowLeft className="mr-2 h-4 w-4" /> Back to school selection
             </Button>
             <div className="mb-6">
               <p className="text-sm text-muted-foreground">School</p>
               <h2 className="text-xl font-semibold">{selectedSchool.name}</h2>
+              <p className="text-muted-foreground mt-2">Please fill out the form for your role: <span className="font-semibold text-foreground">{groupUser.name}</span></p>
             </div>
             {formWithProps}
         </>
@@ -134,7 +135,6 @@ export default function DashboardPage() {
       );
     }
   }
-
 
   return (
     <main className="container mx-auto p-4 md:p-8">
