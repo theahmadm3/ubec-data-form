@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, cloneElement, useEffect } from "react";
+import { Suspense, useState, cloneElement, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Logo from "@/components/logo";
 import { groupUsers, FormType } from "@/lib/user-types";
@@ -36,7 +36,7 @@ const formMapping: Record<FormType, React.ReactNode> = {
   "HOPE_DLI": <HopeDliForm />,
 };
 
-export default function DashboardPage() {
+function DashboardContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const userType = searchParams.get('userType') as 'individual' | 'group' | null;
@@ -157,4 +157,12 @@ export default function DashboardPage() {
       </AlertDialog>
     </main>
   );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<p className="text-center p-8">Loading...</p>}>
+      <DashboardContent />
+    </Suspense>
+  )
 }
